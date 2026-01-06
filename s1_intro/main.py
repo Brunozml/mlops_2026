@@ -1,3 +1,5 @@
+import numpy 
+
 def main():
     print("Hello from s1-intro!")
 
