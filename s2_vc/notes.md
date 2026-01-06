@@ -12,7 +12,7 @@ Learning objectives:
 
 ## Agenda
 
-- [] M5: Git
+- [In progress] M5: Git
 - [] M6: 
 
 
