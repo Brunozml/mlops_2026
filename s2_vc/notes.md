@@ -19,5 +19,3 @@ Learning objectives:
 ## M5: Git
 
 Learning branching is very important in collaborating with code.
-
-HEY Hey HEY
