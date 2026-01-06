@@ -1,16 +1,43 @@
+"""
+Contains model architecture
+
+@ Rewritten on Tuesday Jan 6th 2026
+"""
+
 from torch import nn
 import torch
 
 class Model(nn.Module):
-    """Just a dummy model to show how to structure your code"""
+    """
+    Convolutional Neural Network with 3 convolutional layers, 
+    one fully connected layer, max_pooling, and relu activation functions.
+    """
     def __init__(self):
         super().__init__()
-        self.layer = nn.Linear(1, 1)
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=32,kernel_size=3,stride=1)
+        self.conv2 = nn.Conv2d(in_channels=32, out_channels=64,kernel_size=3,stride=1)
+        self.conv3 = nn.Conv2d(in_channels=64, out_channels=128,kernel_size=3,stride=1)
+
+        self.dropout = nn.Dropout(0.2)
+        self.fc1 = nn.Linear(128,10)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.layer(x)
+        """ forward pass. """
+        x = torch.relu(self.conv1(x))
+        x = torch.max_pool2d(x,kernel_size=2,stride=2)
+        x = torch.relu(self.conv2(x))
+        x = torch.max_pool2d(x,kernel_size=2,stride=2)
+        x = torch.relu(self.conv3(x))
+        x = torch.max_pool2d(x,kernel_size=2,stride=2)
+        x = torch.flatten(x, start_dim=1)
+        x = self.dropout(x)
+
+        return self.fc1(x)
 
 if __name__ == "__main__":
     model = Model()
-    x = torch.rand(1)
+    print(f"Model Architecture: {model}")
+    print(f"Number of parameters: {sum(p.numel() for p in model.parameters())}")
+
+    x = torch.rand(1,1,28,28)
     print(f"Output shape of model: {model(x).shape}")

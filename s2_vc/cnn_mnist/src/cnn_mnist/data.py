@@ -95,7 +95,3 @@ if __name__ == "__main__":
     print(f"Mean of test set: {test_set[0][0].mean().item()}")
     print(f"Std of test set: {test_set[0][0].std().item()}")
 
-
-    # save datasets in processed folder
-    # torch.save(train_set, )
-
