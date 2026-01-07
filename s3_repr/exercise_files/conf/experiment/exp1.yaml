@@ -1,0 +1,15 @@
+# @package _group_
+dataset_path: '~/datasets'
+
+# seed
+seed: 79
+
+#training & model
+batch_size: 100
+epochs: 2
+x_dim: 784
+hidden_dim: 400
+latent_dim: 20
+
+# optimizer
+lr: 1e-03

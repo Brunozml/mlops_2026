@@ -1,3 +1,5 @@
+import os
+
 import matplotlib.pyplot as plt
 import torch
 import typer
@@ -8,8 +10,12 @@ from cnn_mnist.data import corrupt_mnist
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
 
 
-def train(lr = 1e-3, batch_size = 32, epochs = 10, models_path = "models/"):
+def train(lr = 1e-3, batch_size = 32, epochs = 1, models_path = "models/"):
     print(f"{lr=}, {batch_size=}, {epochs=}")
+
+    # ensure output directories exist
+    os.makedirs(models_path, exist_ok=True)
+    os.makedirs("reports/figures", exist_ok=True)
 
     dataset, _ = corrupt_mnist("data/processed")
     model = Model().to(DEVICE)
