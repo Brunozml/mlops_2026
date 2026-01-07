@@ -65,7 +65,7 @@ def preprocess(raw_dir, processed_dir):
     torch.save(train_target, f"{processed_dir}/train_target.pt")
     torch.save(test_target, f"{processed_dir}/test_target.pt")
 
-def corrupt_mnist(processed_dir):
+def corrupt_mnist(processed_dir="data/processed"):
     # load data 
     train_images = torch.load(f'{processed_dir}/train_images.pt')
     train_target = torch.load(f'{processed_dir}/train_target.pt')
