@@ -1,0 +1,17 @@
+{
+  "os": "macOS-15.6.1-arm64-arm-64bit-Mach-O",
+  "python": "CPython 3.13.2",
+  "startedAt": "2026-01-10T15:55:26.620810Z",
+  "program": "/Users/brunozorrilla/Documents/GitHub/mlops_2026/s4_debugging/exercise_files/./test_wandb.py",
+  "codePath": "s4_debugging/exercise_files/test_wandb.py",
+  "codePathLocal": "test_wandb.py",
+  "git": {
+    "remote": "https://github.com/Brunozml/mlops_2026.git",
+    "commit": "7995abefb61c4eacd1109c6114babca51c588672"
+  },
+  "email": "bzorrilla02@gmail.com",
+  "root": "/Users/brunozorrilla/Documents/GitHub/mlops_2026/s4_debugging/exercise_files",
+  "host": "Bruno-Zorrilla-M1.local",
+  "executable": "/Users/brunozorrilla/Documents/GitHub/mlops_2026/s4_debugging/exercise_files/.venv/bin/python3",
+  "writerId": "gv5uctty0cinps4rxuqdxwa3uc09wh2m"
+}
