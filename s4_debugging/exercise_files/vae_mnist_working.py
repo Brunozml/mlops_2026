@@ -8,6 +8,7 @@ import torch.nn as nn
 import torchvision.transforms as transforms
 from torch.optim import Adam
 from torch.utils.data import DataLoader
+from torch.utils.data import TensorDataset
 from torchvision.datasets import MNIST
 from torchvision.utils import save_image
 
@@ -20,7 +21,7 @@ x_dim = 784
 hidden_dim = 400
 latent_dim = 20
 lr = 1e-3
-epochs = 5
+epochs = 1
 
 
 # Data loading
@@ -29,8 +30,13 @@ mnist_transform = transforms.Compose([transforms.ToTensor()])
 train_dataset = MNIST(dataset_path, transform=mnist_transform, train=True, download=True)
 test_dataset = MNIST(dataset_path, transform=mnist_transform, train=False, download=True)
 
-train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
-test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
+# the class also internally normalize to [0,1] domain so we need to divide by 255
+train_dataset = TensorDataset(train_dataset.data.float() / 255.0, train_dataset.targets)
+test_dataset = TensorDataset(test_dataset.data.float() / 255.0, test_dataset.targets)
+
+# optimized for m1 macs with cores = num_workers=7
+train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True, num_workers=7)
+test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False, num_workers=7)
 
 
 class Encoder(nn.Module):
@@ -109,7 +115,7 @@ def loss_function(x, x_hat, mean, log_var):
 
 optimizer = Adam(model.parameters(), lr=lr)
 
-
+# %%  Training the VAE model
 print("Start training VAE...")
 model.train()
 for epoch in range(epochs):
@@ -137,6 +143,8 @@ for epoch in range(epochs):
         overall_loss / (batch_idx * batch_size),
     )
 print("Finish!!")
+
+
 
 # Generate reconstructions
 model.eval()

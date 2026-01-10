@@ -20,7 +20,7 @@ x_dim = 784
 hidden_dim = 400
 latent_dim = 20
 lr = 1e-3
-epochs = 10000
+epochs = 1000
 
 
 # Data loading
@@ -159,6 +159,7 @@ print("Finish single-batch debug!!")
 
 #  save single batch orig
 save_image(x_single.view(batch_size, 1, 28, 28), "single_batch_orig_data.png")
+
 
 # Generate reconstructions
 model.eval()
