@@ -20,7 +20,7 @@ x_dim = 784
 hidden_dim = 400
 latent_dim = 20
 lr = 1e-3
-epochs = 5
+epochs = 10000
 
 
 # Data loading
@@ -51,7 +51,8 @@ class Encoder(nn.Module):
         h_ = torch.relu(self.FC_input(x))
         mean = self.FC_mean(h_)
         log_var = self.FC_var(h_)
-        z = self.reparameterization(mean, log_var)
+        var = torch.exp(log_var)
+        z = self.reparameterization(mean, var)
         return z, mean, log_var
 
     def reparameterization(self, mean, var):
@@ -108,31 +109,56 @@ def loss_function(x, x_hat, mean, log_var):
 
 optimizer = Adam(model.parameters(), lr=lr)
 
-print("Start training VAE...")
+# # full training loop
+# print("Start training VAE...")
+# model.train()
+# for epoch in range(epochs):
+#     overall_loss = 0
+#     for batch_idx, (x, _) in enumerate(train_loader):
+#         if batch_idx % 100 == 0:
+#             print(batch_idx)
+#         x = x.view(batch_size, x_dim)
+#         x = x.to(DEVICE)
+#         optimizer.zero_grad() # zero the gradients
+#         x_hat, mean, log_var = model(x)
+#         loss = loss_function(x, x_hat, mean, log_var)
+
+#         overall_loss += loss.item()
+
+#         loss.backward()
+#         optimizer.step()
+#     print(
+#         "\tEpoch",
+#         epoch + 1,
+#         "complete!",
+#         "\tAverage Loss: ",
+#         overall_loss / (batch_idx * batch_size),
+#     )
+# print("Finish!!")
+
+
+# single batch for reconstruction and generation
+print("Start VAE using single batch...")
 model.train()
+# Get a single batch
+single_batch = next(iter(train_loader))
+x_single, _ = single_batch
+x_single = x_single.view(batch_size, x_dim).to(DEVICE) # reshape and add to device
+
 for epoch in range(epochs):
-    overall_loss = 0
-    for batch_idx, (x, _) in enumerate(train_loader):
-        if batch_idx % 100 == 0:
-            print(batch_idx)
-        x = x.view(batch_size, x_dim)
-        x = x.to(DEVICE)
 
-        x_hat, mean, log_var = model(x)
-        loss = loss_function(x, x_hat, mean, log_var)
+    optimizer.zero_grad()
 
-        overall_loss += loss.item()
+    x_hat, mean, log_var = model(x_single)
+    loss = loss_function(x_single, x_hat, mean, log_var)
+    loss.backward()
+    optimizer.step()
+    if epoch % 100 == 0:
+        print(f"Epoch: {epoch+1}, Loss: {loss.item():.4f}")
+print("Finish single-batch debug!!")
 
-        loss.backward()
-        optimizer.step()
-    print(
-        "\tEpoch",
-        epoch + 1,
-        "complete!",
-        "\tAverage Loss: ",
-        overall_loss / (batch_idx * batch_size),
-    )
-print("Finish!!")
+#  save single batch orig
+save_image(x_single.view(batch_size, 1, 28, 28), "single_batch_orig_data.png")
 
 # Generate reconstructions
 model.eval()
