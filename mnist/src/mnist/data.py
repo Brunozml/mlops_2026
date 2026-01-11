@@ -56,9 +56,13 @@ def corrupt_mnist():
     torch.save(train_target, f"{processed_dir}/train_target.pt")
     torch.save(test_target, f"{processed_dir}/test_target.pt")
 
+    # convert to tensor dataset 
+    train = torch.utils.data.TensorDataset(train_images, train_target)
+    test = torch.utils.data.TensorDataset(test_images, test_target)
+
+    return train, test
     
-    return train_images, train_target, test_images, test_target
 
 if __name__ == "__main__":
-    train_images, train_target, test_images, test_target = corrupt_mnist()
-    print(f"Train shape: {train_images.shape}, Test shape: {test_images.shape}")
+    train, test = corrupt_mnist()
+    print(f"Train shape: {len(train)}, Test shape: {len(test)}")
