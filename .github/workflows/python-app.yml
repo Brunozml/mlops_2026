@@ -28,19 +28,19 @@ jobs:
           python-version: "3.12"
       - name: Install uv
         uses: astral-sh/setup-uv@v1
-      - name: [${{ matrix.project }}] Install dependencies using uv
+      - name: "${{ matrix.project }} - Install dependencies using uv"
         run: |
           cd ${{ matrix.project }}
           uv sync
-      - name: [${{ matrix.project }}] Test with pytest
+      - name: "${{ matrix.project }} - Test with pytest"
         run: |
           cd ${{ matrix.project }}
           pytest
-      - name: [${{ matrix.project }}] Lint code with Ruff
+      - name: "${{ matrix.project }} - Lint code with Ruff"
         run: |
           cd ${{ matrix.project }}
           uv run ruff check --output-format=github
-      - name: [${{ matrix.project }}] Check code formatting with Ruff
+      - name: "${{ matrix.project }} - Check code formatting with Ruff"
         run: |
           cd ${{ matrix.project }}
           uv run ruff format --diff
