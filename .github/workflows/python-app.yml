@@ -35,7 +35,7 @@ jobs:
       - name: "${{ matrix.project }} - Test with pytest"
         run: |
           cd ${{ matrix.project }}
-          pytest
+          uv run pytest
       - name: "${{ matrix.project }} - Lint code with Ruff"
         run: |
           cd ${{ matrix.project }}
