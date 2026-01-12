@@ -33,7 +33,7 @@ jobs:
         uses: astral-sh/setup-uv@v1
         with:
           python-version: 3.12
-          enable-cache: true
+          enable-cache: False
       - name: '${{ matrix.project }} - Install dependencies using uv'
         run: |
           cd ${{ matrix.project }}
