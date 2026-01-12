@@ -26,9 +26,11 @@ def train(lr = config['hyperparameters']['lr'],
     print(f"Batch Size: {batch_size}")
     print(f"Epochs: {epochs}")
 
-    print(f'Seeded at {seed=}')
-    # Set all seeds for reproducibility
-    torch.manual_seed(seed)
+
+    if seed: 
+        # Set all seeds for reproducibility
+        print(f'Seeded at {seed=}')
+        torch.manual_seed(seed)
 
     dataset, _ = corrupt_mnist()
     model = Model().to(DEVICE)
