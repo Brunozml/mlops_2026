@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        project: [mnist]
+        project: [mnist, s1_intro]
 
     steps:
       - uses: actions/checkout@v4
