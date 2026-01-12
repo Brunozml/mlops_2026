@@ -15,11 +15,6 @@ dependencies = [
     "typer>=0.21.0",
 ]
 
-[[tool.uv.index]]
-name = "pytorch-cpu"
-url = "https://download.pytorch.org/whl/cpu"
-explicit = true
-
 [dependency-groups]
 dev = [
     "ipykernel>=7.1.0",
