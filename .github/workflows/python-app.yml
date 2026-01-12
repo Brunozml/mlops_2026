@@ -24,9 +24,11 @@ jobs:
           python-version: "3.12"
       - name: Install uv
         uses: astral-sh/setup-uv@v1
-      - name: Install dependencies using uv
+      - name: [MNIST] Install dependencies using uv
         run: |
+          cd mnist
           uv sync
       - name: Test with pytest
         run: |
+          cd mnist
           pytest
