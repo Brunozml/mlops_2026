@@ -1,53 +1,52 @@
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
 name: Python application
-
-on:
+'on':
   push:
-    branches: ["main"]
+    branches:
+      - main
   pull_request:
-    branches: ["main"]
-
+    branches:
+      - main
 permissions:
   contents: read
-
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: '${{ github.workflow }}-${{ github.ref }}'
   cancel-in-progress: true
-
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: '${{ matrix.os }}'
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        project: [mnist, s1_intro]
-
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+        project:
+          - mnist
+          - s1_intro
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python 3.12
         uses: actions/setup-python@v3
         with:
-          python-version: "3.12"
+          python-version: '3.12'
       - name: Install uv
         uses: astral-sh/setup-uv@v1
         with:
           python-version: 3.12
           enable-cache: true
-      - name: "${{ matrix.project }} - Install dependencies using uv"
+      - name: '${{ matrix.project }} - Install dependencies using uv'
         run: |
           cd ${{ matrix.project }}
           uv sync
-      - name: "${{ matrix.project }} - Test with pytest"
+      - name: '${{ matrix.project }} - Test with pytest'
         run: |
           cd ${{ matrix.project }}
           uv run pytest
-      - name: "${{ matrix.project }} - Lint code with Ruff"
+      - name: '${{ matrix.project }} - Lint code with Ruff'
         run: |
           cd ${{ matrix.project }}
           uv run ruff check --output-format=github
-      - name: "${{ matrix.project }} - Check code formatting with Ruff"
+      - name: '${{ matrix.project }} - Check code formatting with Ruff'
         run: |
           cd ${{ matrix.project }}
           uv run ruff format --diff
