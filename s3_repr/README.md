@@ -26,12 +26,12 @@ original_images/
 - `original_images` contains 400 png drone images, with format `<id>.png`, in RGB coloring
 - `label_images_semantic/` contains the same 400 images, but pixel RGB values have been replaced with the corresponding class RGB values according to the table below:
 
-| Class          | Color                                                                                                                  | R   | G   | B   |
-| -------------- | ---------------------------------------------------------------------------------------------------------------------- | --- | --- | --- |
-| obstacles      | <span style="display:inline-block;width:16px;height:16px;background-color:rgb(155,38,182);border-radius:3px;"></span>  | 155 | 38  | 182 |
-| water          | <span style="display:inline-block;width:16px;height:16px;background-color:rgb(14,135,204);border-radius:3px;"></span>  | 14  | 135 | 204 |
-| soft-surfaces  | <span style="display:inline-block;width:16px;height:16px;background-color:rgb(124,252,0);border-radius:3px;"></span>   | 124 | 252 | 0   |
-| moving-objects | <span style="display:inline-block;width:16px;height:16px;background-color:rgb(255,20,147);border-radius:3px;"></span>  | 255 | 20  | 147 |
-| landing-zones  | <span style="display:inline-block;width:16px;height:16px;background-color:rgb(169,169,169);border-radius:3px;"></span> | 169 | 169 | 169 |
+| Class          | Color                                                                                                                         | R   | G   | B   |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------- | --- | --- | --- |
+| obstacles      | <span style="display:inline-block;width:16px;height:16px;background-color:rgb(155,38,182);border-radius:3px;"></span> Magenta | 155 | 38  | 182 |
+| water          | <span style="display:inline-block;width:16px;height:16px;background-color:rgb(14,135,204);border-radius:3px;"></span> Blue    | 14  | 135 | 204 |
+| soft-surfaces  | <span style="display:inline-block;width:16px;height:16px;background-color:rgb(124,252,0);border-radius:3px;"></span> Green    | 124 | 252 | 0   |
+| moving-objects | <span style="display:inline-block;width:16px;height:16px;background-color:rgb(255,20,147);border-radius:3px;"></span> Pink    | 255 | 20  | 147 |
+| landing-zones  | <span style="display:inline-block;width:16px;height:16px;background-color:rgb(169,169,169);border-radius:3px;"></span> Grey   | 169 | 169 | 169 |
 
 _Note_: Original imagery dataset comes from [TU Graz, IVC](https://ivc.tugraz.at/research-project/semantic-drone-dataset/).
