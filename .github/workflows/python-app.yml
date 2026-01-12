@@ -35,3 +35,12 @@ jobs:
         run: |
           cd ${{ matrix.project }}
           pytest
+      - name: [${{ matrix.project }}] Lint code with Ruff
+        run: |
+          cd ${{ matrix.project }}
+          uv run ruff check --output-format=github
+      - name: [${{ matrix.project }}] Check code formatting with Ruff
+        run: |
+          cd ${{ matrix.project }}
+          uv run ruff format --diff
+        continue-on-error: true
