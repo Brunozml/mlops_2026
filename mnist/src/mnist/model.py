@@ -29,22 +29,15 @@ class Model(nn.Module):
 
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Forward pass involves
-        relu activation functions and max pooling
-        """
-        x = self.conv1(x)
-        x = torch.relu(x)
-        x = torch.max_pool2d(x,kernel_size=2,stride=2)
-
+        """Forward pass."""
+        x = torch.relu(self.conv1(x))
+        x = torch.max_pool2d(x, 2, 2)
         x = torch.relu(self.conv2(x))
-        x = torch.max_pool2d(x,kernel_size=2,stride=2)
-
+        x = torch.max_pool2d(x, 2, 2)
         x = torch.relu(self.conv3(x))
-        x = torch.max_pool2d(x,kernel_size=2,stride=2)
-
-        x = torch.flatten(x, start_dim=1)
+        x = torch.max_pool2d(x, 2, 2)
+        x = torch.flatten(x, 1)
         x = self.dropout(x)
-
         return self.fc1(x)
     
 

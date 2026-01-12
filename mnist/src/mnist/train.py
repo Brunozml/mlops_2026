@@ -3,6 +3,11 @@ import os
 from mnist.model import Model
 from mnist.data import corrupt_mnist
 import torch
+from omegaconf import OmegaConf
+# loading
+
+config = OmegaConf.load('config.yaml')
+
 
 # specify training device 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
@@ -10,11 +15,21 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.ba
 # Hyperparameters
 
 
-def train(lr = 1e-3,
-          batch_size = 32,
-          epochs = 1,
-          models_path = "models/"):
+def train(lr = config['hyperparameters']['lr'],
+          batch_size = config['hyperparameters']['batch_size'],
+          epochs = config['hyperparameters']['epochs'],
+          models_path = "models/",
+          seed = config['hyperparameters']['seed']):
     
+    # print out hyperparameters
+    print(f"Learning Rate: {lr}")
+    print(f"Batch Size: {batch_size}")
+    print(f"Epochs: {epochs}")
+
+    print(f'Seeded at {seed=}')
+    # Set all seeds for reproducibility
+    torch.manual_seed(seed)
+
     dataset, _ = corrupt_mnist()
     model = Model().to(DEVICE)
 

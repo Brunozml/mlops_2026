@@ -39,7 +39,7 @@ def corrupt_mnist():
 
     # unsqueeze from [N_samples , width, height] to [N_samples, 1, width, height]
     train_images = train_images.unsqueeze(dim=1) 
-    test_target = test_images.unsqueeze(dim=1)
+    test_images = test_images.unsqueeze(dim=1)
 
     # convert target to 64-bit int dtype (required for certain loss functions)
     train_target = train_target.long()
