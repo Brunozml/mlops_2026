@@ -14,9 +14,10 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
         project: [mnist, s1_intro, s2_vc, s3_repr, s5_ci]
 
     steps:
